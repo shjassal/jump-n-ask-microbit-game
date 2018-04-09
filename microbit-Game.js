@@ -1,6 +1,5 @@
 let degrees = 0
 let random = 0
-let direction = 0
 let num = 0
 let state = ""
 function face_North()  {
@@ -8,7 +7,7 @@ function face_North()  {
     num = 0
     while (state != "is_north") {
         degrees = input.compassHeading()
-        if (degrees < 45) {
+        if (degrees < 30 || degrees > 330) {
             basic.showString("N")
             basic.pause(200)
             basic.showString("")
@@ -27,30 +26,41 @@ function face_North()  {
 }
 function instruct_random_drtn()  {
     basic.clearScreen()
-    direction = Math.random(3)
-    if (direction == 0) {
-        basic.showString("East")
-        if (degrees < 135) {
-            basic.showIcon(IconNames.Happy)
-            basic.showString("?")
-        } else {
-            face_North()
-        }
+    random = Math.random(3)
+    if (random == 0) {
+        basic.showString("Go East")
     } else if (random == 1) {
-        basic.showString("South")
-        if (degrees < 225) {
-            basic.showIcon(IconNames.Happy)
-            basic.showString("?")
-        } else {
-            face_North()
-        }
+        basic.showString("Go South")
     } else {
-        basic.showString("West")
-        if (degrees < 315) {
-            basic.showIcon(IconNames.Happy)
-            basic.showString("?")
+        basic.showString("Go West")
+    }
+    num = 0
+    while (num == 0) {
+        degrees = input.compassHeading()
+        if (random == 0) {
+            if (degrees < 120 && degrees > 60) {
+                basic.showIcon(IconNames.Happy)
+                basic.showString("?")
+                num = 1
+            } else {
+                basic.showIcon(IconNames.No)
+            }
+        } else if (random == 1) {
+            if (degrees < 210 && degrees > 150) {
+                basic.showIcon(IconNames.Happy)
+                basic.showString("?")
+                num = 1
+            } else {
+                basic.showIcon(IconNames.No)
+            }
         } else {
-            face_North()
+            if (degrees < 300 && degrees > 240) {
+                basic.showIcon(IconNames.Happy)
+                basic.showString("?")
+                num = 1
+            } else {
+                basic.showIcon(IconNames.No)
+            }
         }
     }
     state = "qn_asked"
