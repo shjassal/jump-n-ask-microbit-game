@@ -1,4 +1,7 @@
+let flash_off = ""
 let degrees = 0
+let flash_on = ""
+let flash_times = 0
 let random = 0
 let num = 0
 let state = ""
@@ -8,15 +11,10 @@ function face_North()  {
     while (state != "is_north") {
         degrees = input.compassHeading()
         if (degrees < 30 || degrees > 330) {
-            basic.showString("N")
-            basic.pause(200)
-            basic.showString("")
-            basic.showString("N")
-            basic.pause(200)
-            basic.showString("")
-            basic.showString("N")
-            basic.pause(200)
-            basic.showString("")
+            flash_on = "N"
+            flash_off = ""
+            flash_times = 3
+            flasher()
             basic.showIcon(IconNames.Yes)
             state = "is_north"
         } else {
@@ -83,4 +81,12 @@ input.onGesture(Gesture.Shake, () => {
         qn_answered()
     }
 })
+function flasher()  {
+    for (let i = 0; i < flash_times; i++) {
+        basic.showString(flash_on)
+        basic.pause(200)
+        basic.showString(flash_off)
+        basic.pause(50)
+    }
+}
 face_North()
